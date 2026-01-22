@@ -19,6 +19,9 @@ async function globalSetup(config: FullConfig) {
 
     const loginPage = new LoginPage(page);
     await loginPage.goto();
+    console.log('Current URL:', page.url());
+    await page.screenshot({ path: 'AFTER_GOTO.png', fullPage: true });
+    await fs.writeFile('AFTER_GOTO.html', await page.content());
 
     // Use environment variables for credentials
     const emp = process.env.EMPLOYEE_CODE;
