@@ -17,33 +17,23 @@ export class LoginPage {
     }
 
     async goto() {
-        const baseUrl = process.env.BASE_URL;
-        await this.page.goto(`${baseUrl}login`)
+        const baseUrl = process.env.BASE_URL!;
+        await this.page.goto(new URL('/login', baseUrl).toString(), {
+            waitUntil: 'networkidle',
+        });
     }
 
     async enterEmployeeCode(code: string) {
+        await this.employeeCode.waitFor({ state: 'visible', timeout: 30000 });
         await this.employeeCode.click();
         await this.employeeCode.fill(code);
-        try {
-            await this.continue.waitFor({ state: 'visible', timeout: 10000 });
-            await this.continue.click();
-        } catch (e) {
-            // fallback strategies if Continue isn't visible/clickable
-            try {
-                await this.employeeCode.press('Enter');
-            } catch {}
-            try {
-                await this.continue.click({ timeout: 5000 });
-            } catch {}
-            try {
-                const btn = this.page.locator('button:has-text("Continue")');
-                if (await btn.count() > 0) await btn.first().click();
-            } catch {}
-        }
 
-        // wait for the verification input to appear
-        await this.verificationCode.waitFor({ state: 'visible', timeout: 15000 });
+        await this.continue.waitFor({ state: 'visible', timeout: 15000 });
+        await this.continue.click();
+
+        await this.verificationCode.waitFor({ state: 'visible', timeout: 20000 });
     }
+
 
     async enterVerificationNums(code: string) {
         // focus & type OTP
