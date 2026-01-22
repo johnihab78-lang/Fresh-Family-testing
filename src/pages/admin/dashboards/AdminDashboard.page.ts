@@ -5,7 +5,7 @@ export class AdminDashboard {
     // Authority Management
     readonly titlePage: Locator;
     readonly searchByCode: Locator;
-    readonly toastMessageInvalid: Locator;
+    readonly toastMessageInvalidAuth: Locator;
     // Role Management
     readonly roleManagement: Locator;
     readonly newRole: Locator;
@@ -13,20 +13,21 @@ export class AdminDashboard {
     readonly roleNameInput: Locator;
     readonly roleDescriptionInput: Locator;
     readonly invalidRoleName: Locator;
+    readonly toastMessageInvalidRole: Locator
 
     constructor(page: Page) {
         this.page = page;
         // Authority Management
         this.titlePage = page.getByRole('heading', { name: "Admin Panel" });
         this.searchByCode = page.locator('input[name="employee_code"]');
-        this.toastMessageInvalid = page.locator('li[data-sonner-toast][data-visible="true"]', { hasText: 'Failed to fetch user' });
+        this.toastMessageInvalidAuth = page.locator('li[data-sonner-toast][data-visible="true"]', { hasText: 'Failed to fetch user' });
         // Role Management
         this.roleManagement = page.getByRole('button', { name: "Role Management" });
         this.newRole = page.getByRole('button', { name: "New" });
         this.addRole = page.getByRole('button', { name: "Create Role" });
         this.roleNameInput = page.locator('input[name="name"]');
         this.roleDescriptionInput = page.locator('textarea[data-slot="textarea"]');
-        this.toastMessageInvalid = page.locator('li[data-sonner-toast][data-visible="true"]', { hasText: 'Failed to create role' });
+        this.toastMessageInvalidRole = page.locator('li[data-sonner-toast][data-visible="true"]', { hasText: 'Failed to create role' });
         this.invalidRoleName = page.getByText(
             'Role name must be lowercase with underscores (e.g., sales_manager)',
             { exact: true }

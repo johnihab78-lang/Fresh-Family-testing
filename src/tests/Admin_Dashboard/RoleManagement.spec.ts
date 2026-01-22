@@ -9,7 +9,7 @@ test.describe("Admin Dashboard", () => {
             "test_testtest_testtest_testtest_testtest_testtest_testtest_test"
         );
         await adminDashboard.addRole.click();
-        await expect(adminDashboard.toastMessageInvalid).toBeFalsy();
+        await expect(adminDashboard.toastMessageInvalidRole).toBeVisible();
     });
 
     test('add new role with upper case role name', async({ adminDashboard }) => {

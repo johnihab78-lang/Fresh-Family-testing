@@ -10,9 +10,8 @@ test.describe("Admin Dashboard", () => {
 
     test('Search Employee Code with Invalid Data', async ({ adminDashboard }) => {
         await adminDashboard.searchEmployeeByCode('60952');
-        const toast = adminDashboard.toastMessageInvalid;
+        const toast = adminDashboard.toastMessageInvalidAuth;
         await expect(toast).toBeVisible({ timeout: 5000 });
-        await expect(toast).toContainText('Failed to fetch user');
     });
     
 });

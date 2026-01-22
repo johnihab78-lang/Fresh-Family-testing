@@ -13,11 +13,12 @@ export default defineConfig({
 
   reporter: [
     ['html', { open: 'on-failure' }],
+    ['github']
   ],
 
   use: {
     baseURL: process.env.BASE_URL,
-    headless: false,
+    headless: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     trace: 'on-first-retry',
